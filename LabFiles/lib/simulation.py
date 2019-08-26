@@ -18,8 +18,8 @@ class Experiment(object):
         self.fig = pylab.figure(figsize=(10, 5))
         gs = gridspec.GridSpec(2, 2)
         self.ax = pylab.subplot(gs[:, 0])
-        self.ax.xaxis.set_visible(False)
-        self.ax.yaxis.set_visible(False)
+        self.ax.xaxis.set_visible(True)
+        self.ax.yaxis.set_visible(True)
         
         if hasattr(self.env, '_cliff'): # Hardcode to nicely display grid for cliffwalkingenv
             self.ax.xaxis.set_visible(True)
@@ -59,7 +59,7 @@ class Experiment(object):
             self.imgplot.set_data(self.env.render(mode='rgb_array'))
 
         self.fig.canvas.draw()
-        
+
     def update_display_episode(self):  
         self.line.set_data(range(len(self.episode_length)),self.episode_length)
         self.ax1.set_xlim(0, max(10, len(self.episode_length)+1))
@@ -111,6 +111,9 @@ class Experiment(object):
         plotting.plot_reward_regret(stats)
         
     def run_agent(self, max_number_of_episodes=100, interactive = False, display_frequency=1):
+        if interactive:
+          plt.ion()
+          plt.show()
 
         # repeat for each episode
         for episode_number in range(max_number_of_episodes):
@@ -152,7 +155,7 @@ class Experiment(object):
         
         # if not interactive display, show graph at the end
         if not interactive:
-            self.fig.clf()
+            plt.close()
             stats = plotting.EpisodeStats(
                 episode_lengths=self.episode_length,
                 episode_rewards=self.episode_reward,

@@ -1,10 +1,7 @@
 import numpy as np
 import matplotlib
 
-import sys
-
-if "../" not in sys.path:
-    sys.path.append("../")
+matplotlib.use('TkAgg')
 
 from lib.envs.simple_rooms import SimpleRoomsEnv
 from lib.simulation import Experiment
@@ -27,7 +24,7 @@ class RandomAgent(Agent):
         return np.random.randint(0, self.num_actions)
 
 
-interactive = True
+interactive = False
 max_number_of_episodes = 5
 env = SimpleRoomsEnv()
 agent = RandomAgent(range(env.action_space.n))
