@@ -72,7 +72,7 @@ class Experiment(object):
         self.fig.canvas.draw()     
         
     def run_bandit(self, max_number_of_trials=1000, display_frequency=1):
-        self.fig.clf()
+        plt.close()
         
         print("Distribution:", self.env.distribution, self.env.reward_parameters, flush = True)
         print("Optimal arm:", self.env.optimal_arm, flush = True)

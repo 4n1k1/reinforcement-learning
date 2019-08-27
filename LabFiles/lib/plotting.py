@@ -48,6 +48,7 @@ def plot_pgresults(stats, smoothing_window=20, hideplot=False):
     plt.xlabel("Episode")
     plt.ylabel("Episode Reward (Smoothed)")
     plt.title("Episode Reward over Time (Smoothed over window size {})".format(smoothing_window))
+
     if hideplot:
         plt.close(fig2)
     else:
@@ -70,6 +71,7 @@ def plot_pgresults(stats, smoothing_window=20, hideplot=False):
     plt.xlabel("Episode")
     plt.ylabel("Cumulative Episode Length")
     plt.title("Cumulative Episode Length over Time")
+
     if hideplot:
         plt.close(fig4)
     else:
@@ -121,10 +123,6 @@ def plot_reward_regret(stats, smoothing_window=1, hideplot=False):
     plt.xlabel("Timestep")
     plt.ylabel("Cumulative Reward")
     plt.title("Cumulative Reward over Timestep")
-    if hideplot:
-        plt.close(fig1)
-    else:
-        plt.show(fig1)
 
     # Plot the regret over time
     fig2 = plt.figure(figsize=(10,5))
@@ -132,15 +130,15 @@ def plot_reward_regret(stats, smoothing_window=1, hideplot=False):
     plt.xlabel("Timestep")
     plt.ylabel("Regret")
     plt.title("Regret over Timestep")
+
     if hideplot:
-        plt.close(fig2)
+        plt.close()
     else:
-        plt.show(fig2)
+        plt.show()
              
     return fig1, fig2   
 
 def plot_arm_rewards(y, hideplot=False):
-    
     N = len(y)
     x = range(N)
     width = 1/1.5
@@ -153,8 +151,8 @@ def plot_arm_rewards(y, hideplot=False):
     plt.title("Arm's Reward Distribution")
     
     if hideplot:
-        plt.close(fig1)
+        plt.close()
     else:
-        plt.show(fig1)
+        plt.show()
              
     return fig1   
