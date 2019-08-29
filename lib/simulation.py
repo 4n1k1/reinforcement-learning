@@ -79,8 +79,8 @@ class Experiment(object):
         
         if self.env.distribution != "normal":
             plotting.plot_arm_rewards(self.env.reward_parameters)
-        #else:
-            #plotting.plot_arm_rewards(self.env.reward_parameters[0])
+        else:
+            plotting.plot_arm_rewards(self.env.reward_parameters[0])
         
         stats = plotting.TimestepStats(
             cumulative_rewards=np.zeros(max_number_of_trials),

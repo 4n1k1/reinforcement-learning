@@ -1,42 +1,25 @@
-This is the repo for the course to run stuff locally without any
-crap software (jupiter, anacoda, etc.)
+# Reinforcement-Learning-Explained
+This repository contains the lab files for Microsoft course DAT257x: Reinforcement Learning Explained
 
-Setup.
+MIT License
 
-1) Install python3:
+Copyright (c) 2018 Microsoft
 
-> pacman -S python
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-Or
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-> apt install python3
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
-or whatever...
-
-2) Create virtual environment for that project:
-
-> mkdir ~/dat257x_venv
-> python3 -m venv ~/dat257x_venv
-
-3) Source it:
-
-> source ~/dat257x_venv/bin/activate
-
-You can create alias for that in .bashrc
-
-4) Install dependencies:
-
-> pip install -r requirements.txt
-
-5) Test your setup:
-
-> cd LabFiles
-> python3 00_rooms_random_agent.py
-
-FAQ.
-
-I don't see any plots. What do I do?
-
-Install Tkinter (your python is probably built without it):
-
-apt install python3-tk
