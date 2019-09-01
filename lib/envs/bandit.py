@@ -45,18 +45,18 @@ class BanditEnv(Environment):
             self.optimal_arm = np.argmax(self.reward_parameters)
         else:
             self.optimal_arm = np.argmax(self.reward_parameters[0])
-    
+
     def reset(self):
         self.is_reset = True
         return None
-    
+
     def compute_gap(self, action):
         if self.distribution != "normal":
             gap = np.absolute(self.reward_parameters[self.optimal_arm] - self.reward_parameters[action])
         else:
             gap = np.absolute(self.reward_parameters[0][self.optimal_arm] - self.reward_parameters[0][action])
         return gap
-    
+
     def step(self, action):
         self.is_reset = False
         

@@ -1,5 +1,5 @@
 import numpy as np
-
+import random
 
 class Policy:
 
@@ -138,3 +138,34 @@ class UCB(Policy):
         self.exploration_bonuses[action] = np.sqrt(
             2.0 * np.log(self.round) / self.total_counts[action]
         )
+
+
+class ThompsonSampling(Policy):
+    def __init__(self, num_actions):
+        Policy.__init__(self, num_actions)
+
+        self.successes = np.zeros(num_actions)
+        self.failures = np.zeros(num_actions)
+
+        self.name = "Thompson Beta"
+
+    def act(self):
+        max_random = 0
+        action_to_pick = 0
+
+        for i in range(self.num_actions):
+            random_beta = random.betavariate(self.successes[i] + 1, self.failures[i] + 1)
+
+            if random_beta > max_random:
+                max_random = random_beta
+                action_to_pick = i
+
+        return action_to_pick
+
+    def feedback(self, action, reward):
+        if reward > 0:
+            self.successes[action] += 1
+        else:
+            self.failures[action] += 1
+
+        self.total_counts[action] += 1
