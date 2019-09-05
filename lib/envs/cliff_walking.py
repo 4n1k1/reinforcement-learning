@@ -2,12 +2,11 @@ import numpy as np
 import sys
 from gym.envs.toy_text import discrete
 
-### CliffWalkingEnv Environment 
-    
+
 class CliffWalkingEnv(discrete.DiscreteEnv):
 
     metadata = {'render.modes': ['human', 'ansi', 'rgb_array']}
-    
+
     def _limit_coordinates(self, coord):
         coord[0] = min(coord[0], self.shape[0] - 1)
         coord[0] = max(coord[0], 0)
@@ -31,12 +30,10 @@ class CliffWalkingEnv(discrete.DiscreteEnv):
 
         # Cliff Location
         self._cliff = np.zeros(self.shape, dtype=np.bool)
-        
         # array([[False, False, False, False, False, False, False, False, False, False, False, False],
         #        [False, False, False, False, False, False, False, False, False, False, False, False],
         #        [False, False, False, False, False, False, False, False, False, False, False, False],
         #        [False, False, False, False, False, False, False, False, False, False, False, False]])
-        
         self._cliff[3, 1:-1] = True
 
         # array([[False, False, False, False, False, False, False, False, False, False, False, False],
@@ -67,18 +64,18 @@ class CliffWalkingEnv(discrete.DiscreteEnv):
     def _convert_state(self, state):
         converted = np.unravel_index(state, self.shape)
         return np.asarray(list(converted), dtype=np.float32)
-    
+
     def reset(self):
         self.s = np.argmax(self.isd)
         return self._convert_state(self.s)
-    
+
     def step(self, action):
         reward = self.P[self.s][action][0][2]
         done = self.P[self.s][action][0][3]
         info = {'prob':self.P[self.s][action][0][0]}
         self.s = self.P[self.s][action][0][1]
         return (self._convert_state(self.s), reward, done, info)
-    
+
     def render(self, mode='rgb_array', close=False):
         if close:
             return
@@ -90,7 +87,7 @@ class CliffWalkingEnv(discrete.DiscreteEnv):
             maze[(3,11)] = 0.5
             img = np.array(maze, copy=True)
             return img
-        
+
         else:
             outfile = StringIO() if mode == 'ansi' else sys.stdout
 
@@ -107,9 +104,9 @@ class CliffWalkingEnv(discrete.DiscreteEnv):
                     output = " o "
 
                 if position[1] == 0:
-                    output = output.lstrip() 
+                    output = output.lstrip()
                 if position[1] == self.shape[1] - 1:
-                    output = output.rstrip() 
+                    output = output.rstrip()
                     output += "\n"
 
                 outfile.write(output)

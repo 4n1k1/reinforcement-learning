@@ -7,8 +7,8 @@ from lib.envs.cliff_walking import CliffWalkingEnv
 from lib.simulation import Experiment
 from shared.agent import RandomAgent
 
-interactive = False
-max_number_of_episodes = 100
+interactive = True
+max_number_of_episodes = 10
 env = CliffWalkingEnv()
 agent = RandomAgent(range(env.action_space.n))
 experiment = Experiment(env, agent)

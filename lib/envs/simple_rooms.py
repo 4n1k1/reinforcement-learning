@@ -1,6 +1,6 @@
 import numpy as np
 
-### Interface
+
 class Environment(object):
 
     def reset(self):
@@ -12,13 +12,13 @@ class Environment(object):
     def step(self):
         raise NotImplementedError('Inheriting classes must override step')
 
+
 class ActionSpace(object):
-    
+
     def __init__(self, actions):
         self.actions = actions
         self.n = len(actions)
-        
-### SimpleRoomsEnv Environment 
+
 
 class SimpleRoomsEnv(Environment):
     """Define a simple 4-room environment"""
@@ -34,7 +34,7 @@ class SimpleRoomsEnv(Environment):
         # define reward structure
         self.R = [0] * len(self.S)
         self.R[15] = 1
-        
+
         # define transitions
         self.P = {}
         self.P[0] = [1, 4]
@@ -57,7 +57,7 @@ class SimpleRoomsEnv(Environment):
         self.max_trajectory_length = 50
         self.tolerance = 0.1
         self._rendered_maze = self._render_maze()
-        
+
     def step(self, action):
         s_prev = self.s
         self.s = self.single_step(self.s, action)
@@ -69,7 +69,7 @@ class SimpleRoomsEnv(Environment):
             self.reset()
 
         return (self._convert_state(self.s), reward, self.is_reset, '')
-    
+
     def single_step(self, s, a):
         if a < 0 or a > 3:
             raise ValueError('Unknown action', a)
@@ -87,21 +87,21 @@ class SimpleRoomsEnv(Environment):
         if s == s_prev:
             return 0
         return rewards[s]
-    
+
     def reset(self):
         self.nstep = 0
         self.s = 0
         self.is_reset = True
         return self._convert_state(self.s)
-    
+
     def _convert_state(self, s):
         converted = np.zeros(len(self.S), dtype=np.float32)
         converted[s] = 1
         return converted
-    
+
     def _get_render_coords(self, s):
         return (int(s / 4) * 4, (s % 4) * 4)
-    
+
     def _render_maze(self):
         # draw background and grid lines
         maze = np.zeros((17, 17))
@@ -137,4 +137,3 @@ class SimpleRoomsEnv(Environment):
         x, y = self._get_render_coords(self.s)
         img[x+1:x+4, y+1:y+4] = 2.0
         return img
-

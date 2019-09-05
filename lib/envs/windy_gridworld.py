@@ -2,7 +2,6 @@ import numpy as np
 import sys
 from gym.envs.toy_text import discrete
 
-### WindyGridworldEnv Environment 
 
 class WindyGridworldEnv(discrete.DiscreteEnv):
 
@@ -65,8 +64,7 @@ class WindyGridworldEnv(discrete.DiscreteEnv):
             maze[(3,7)] = 0.5
             img = np.array(maze, copy=True)
             return img
-       
-        else:        
+        else:
             outfile = StringIO() if mode == 'ansi' else sys.stdout
 
             for s in range(self.nS):
