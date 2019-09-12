@@ -1,5 +1,5 @@
 # test_dp.py - a set of functions for testing Dynamic Programming algorithms
-import gridworld_mdp as gw 
+import gridworld_mdp as gw
 
 def error(msg):
     print("ERROR: " + msg)
@@ -17,7 +17,7 @@ def find_rounded_diffs(v, vexpect):
     for i in range(len(vexpect)):
         diff = abs(round(vexpect[i]) - round(v[i]))
 
-        if diff > 0:       
+        if diff > 0:
             #print("DIFF=", diff, ", i=", i, ", vexpect[i]=", vexpect[i], ", v[i]=", v[i])
             if (first_diff_index == -1):
                 first_diff_index = i
@@ -37,7 +37,7 @@ def find_exact_diffs(v, vexpect):
         else:
             diff = (val != ve)
 
-        if diff:      
+        if diff:
             #print("DIFF=", diff, ", i=", i, ", vexpect[i]=", ve, ", v[i]=", val)
             if (first_diff_index == -1):
                 first_diff_index = i
@@ -50,7 +50,7 @@ def policy_eval_core_test(eval_func, variant):
     print("Testing: Policy Evaluation (" + variant + ")")
 
     vexpect = [0, -14, -20, -22, -14, -18, -20, -20, -20, -20, -18, -14, -22, -20, -14]
-    
+
     state_count = len(vexpect)
     #actions=["left", "right", "up", "down"]
     gamma = 1
@@ -63,13 +63,13 @@ def policy_eval_core_test(eval_func, variant):
         error("return value is not a list")
         return
     passed("return value is list")
-    
+
     # 2. check length of list
     if (len(v) != len(vexpect)):
         error("length of  list is neq " + str(len(vexpect)))
         return
     passed("length of list = " + str(len(vexpect)))
-    
+
     # 3. check value of elements (compared to 2 decimal places)
     diffs, first_diff_index = find_rounded_diffs(v, vexpect)
 
@@ -114,7 +114,7 @@ def policy_iteration_core_test(eval_func, name, passcode_index):
         error("return value is not a tuple")
         return
     passed("return value is tuple")
-    
+
     # 2. check len of result
     if (len(result) != 2):
         error("length of tuple is neq 2")
@@ -146,7 +146,7 @@ def policy_iteration_core_test(eval_func, name, passcode_index):
         error("pi is not a list of length=" + str(state_count))
         return
     passed("pi is list of length=" + str(state_count))
-    
+
     #print("pi=", pi)
 
     # 6. check value of elements of pi
@@ -162,10 +162,9 @@ def policy_iteration_core_test(eval_func, name, passcode_index):
     pass_code = str(abs(int(10000000*(pass_value - int(pass_value)))))
     pass_code = pass_code[:4] + "-" + pass_code[4:]
     print("PASSED: " + name + " passcode = " + pass_code)
-    
+
 def policy_iteration_test(eval_func):
     return policy_iteration_core_test(eval_func, "Policy Iteration", 3)
 
 def value_iteration_test(eval_func):
     return policy_iteration_core_test(eval_func, "Value Iteration", 5)
-

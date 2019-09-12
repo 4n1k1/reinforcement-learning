@@ -1,5 +1,5 @@
-# gridworkd_mdp.py - provides a full MDP specification for a 4x4 gridworld. 
-# The Gridworld has a "single goal state", located in the upper/left and lower/right corners 
+# gridworkd_mdp.py - provides a full MDP specification for a 4x4 gridworld.
+# The Gridworld has a "single goal state", located in the upper/left and lower/right corners
 # of the grid.
 
 def get_state_count():
@@ -15,7 +15,7 @@ def get_transitions(state, action):
     prob = 1
     trans = (next_state_num, reward, prob)
     return [trans]
-    
+
 def build_next_state_dictionary():
     next_state = {}
     next_state[(0, "left")] = 0
