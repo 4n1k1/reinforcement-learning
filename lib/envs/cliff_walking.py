@@ -26,6 +26,7 @@ class CliffWalkingEnv(discrete.DiscreteEnv):
         self.shape = (4, 12)
 
         nS = np.prod(self.shape)  # 48
+        self.S = range(nS)
         nA = 4
 
         # Cliff Location

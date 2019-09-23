@@ -8,7 +8,7 @@ from lib.simulation import Experiment
 from shared.agent import RandomAgent
 
 
-interactive = False
+interactive = True
 max_number_of_episodes = 5
 env = SimpleRoomsEnv()
 agent = RandomAgent(range(env.action_space.n))

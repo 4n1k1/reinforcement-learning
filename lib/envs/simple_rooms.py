@@ -33,6 +33,7 @@ class SimpleRoomsEnv(Environment):
 
         # define reward structure
         self.R = [0] * len(self.S)
+
         self.R[15] = 1
 
         # define transitions

@@ -215,6 +215,11 @@ class Experiment(object):
             plotting.plot_episode_stats(stats, display_frequency)
             
     def run_sarsa(self, max_number_of_episodes=100, interactive = False, display_frequency=1):
+        if interactive:
+            plt.ion()
+            plt.show()
+        else:
+            plt.close()
 
         # repeat for each episode
         for episode_number in range(max_number_of_episodes):

@@ -8,17 +8,11 @@ class Policy:
         self.total_rewards = np.zeros(num_actions)
         self.total_counts = np.zeros(num_actions)
         self.current_averages=np.array([r] * num_actions)
-        # print("Current averages")
-        # print(self.current_averages)
 
     def act(self):
         pass
 
     def feedback(self, action, reward):
-        # print("================")
-        # print("action: " + str(action))
-        # print("Current averages")
-        # print(self.current_averages)
         self.total_rewards[action] += reward
         self.total_counts[action] += 1
 

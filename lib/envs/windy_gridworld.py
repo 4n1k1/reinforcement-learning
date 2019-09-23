@@ -25,6 +25,7 @@ class WindyGridworldEnv(discrete.DiscreteEnv):
         self.shape = (7, 10)
 
         nS = np.prod(self.shape)
+        self.S = range(nS)
         nA = 4
 
         # Wind strength
