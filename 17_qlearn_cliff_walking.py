@@ -3,16 +3,16 @@ import matplotlib
 
 matplotlib.use('TkAgg')
 
-from lib.envs.simple_rooms import SimpleRoomsEnv
+from lib.envs.cliff_walking import CliffWalkingEnv
 from lib.simulation import Experiment
 
 from shared.agent import Agent
 
 
-class SarsaAgent(Agent):
+class QLearningAgent(Agent):
 
-    def __init__(self, actions, states, epsilon=0.05, alpha=0.5, gamma=1.0):
-        super(SarsaAgent, self).__init__(actions)
+    def __init__(self, actions, states, epsilon=0.01, alpha=0.5, gamma=1):
+        super(QLearningAgent, self).__init__(actions)
 
         self._epsilon = epsilon
         self._alpha = alpha
@@ -30,7 +30,7 @@ class SarsaAgent(Agent):
             self._Q_table[s] = action_values
 
     def act(self, state):
-        state = np.argmax(state)
+        state = state[0] * 12 + state[1]
 
         choice = np.random.binomial(1, self._epsilon)
 
@@ -46,15 +46,7 @@ class SarsaAgent(Agent):
 
             return np.random.choice(max_value_indices)
 
-    def learn(self, state1, action1, reward, state2, action2):
-        state1 = np.argmax(state1)
-        state2 = np.argmax(state2)
-
-        self._Q_table[state1][action1] = self._Q_table[state1][action1] + \
-            self._alpha * (
-                reward + self._gamma * self._Q_table[state2][action2] - \
-                self._Q_table[state1][action1]
-            )
+    def learn(self, state1, action1, reward, state2, stop):
         """
           SARSA Update
           Q(s,a) <- Q(s,a) + alpha * (reward + gamma * Q(s',a') - Q(s,a))
@@ -64,12 +56,21 @@ class SarsaAgent(Agent):
           Q(s,a) <- Q(s,a) + alpha * td_delta
         """
 
+        state1 = state1[0] * 12 + state1[1]
+        state2 = state2[0] * 12 + state2[1]
+
+        self._Q_table[state1][action1] = self._Q_table[state1][action1] + \
+            self._alpha * (
+                reward + self._gamma * max(self._Q_table[state2]) - \
+                self._Q_table[state1][action1]
+            )
+
 interactive = False
 
-env = SimpleRoomsEnv()
-agent = SarsaAgent(
+env = CliffWalkingEnv()
+agent = QLearningAgent(
     range(env.action_space.n),
     env.S,
 )
 experiment = Experiment(env, agent)
-experiment.run_sarsa(100, interactive)
+experiment.run_sarsa(1000, interactive)

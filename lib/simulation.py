@@ -164,6 +164,11 @@ class Experiment(object):
         
   
     def run_qlearning(self, max_number_of_episodes=100, interactive = False, display_frequency=1):
+        if interactive:
+          plt.ion()
+          plt.show()
+        else:
+          plt.close()
 
         # repeat for each episode
         for episode_number in range(max_number_of_episodes):

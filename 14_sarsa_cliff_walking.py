@@ -3,8 +3,6 @@ import matplotlib
 
 matplotlib.use('TkAgg')
 
-#from lib.envs.simple_rooms import SimpleRoomsEnv
-#from lib.envs.windy_gridworld import WindyGridworldEnv
 from lib.envs.cliff_walking import CliffWalkingEnv
 from lib.simulation import Experiment
 
@@ -75,4 +73,4 @@ agent = SarsaAgent(
     env.S,
 )
 experiment = Experiment(env, agent)
-experiment.run_sarsa(100, interactive)
+experiment.run_sarsa(1000, interactive)

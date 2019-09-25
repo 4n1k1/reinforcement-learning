@@ -4,8 +4,6 @@ import matplotlib
 matplotlib.use('TkAgg')
 
 from lib.envs.simple_rooms import SimpleRoomsEnv
-#from lib.envs.windy_gridworld import WindyGridworldEnv
-#from lib.envs.cliff_walking import CliffWalkingEnv
 from lib.simulation import Experiment
 
 from shared.agent import Agent
@@ -13,7 +11,7 @@ from shared.agent import Agent
 
 class QLearningAgent(Agent):
 
-    def __init__(self, actions, states, epsilon=0.05, alpha=0.5, gamma=1):
+    def __init__(self, actions, states, epsilon=0.01, alpha=0.5, gamma=1.0):
         super(QLearningAgent, self).__init__(actions)
 
         self._epsilon = epsilon
@@ -32,6 +30,8 @@ class QLearningAgent(Agent):
             self._Q_table[s] = action_values
 
     def act(self, state):
+        state = np.argmax(state)
+
         choice = np.random.binomial(1, self._epsilon)
 
         if choice == 1:
@@ -47,27 +47,29 @@ class QLearningAgent(Agent):
             return np.random.choice(max_value_indices)
 
     def learn(self, state1, action1, reward, state2, done):
-        """
-            Q-learning Update:
-            Q(s,a) <- Q(s,a) + alpha * (reward + gamma * max(Q(s') - Q(s,a))
-            or
-            Q(s,a) <- Q(s,a) + alpha * (td_target - Q(s,a))
-            or
-            Q(s,a) <- Q(s,a) + alpha * td_delta
-        """
+        state1 = np.argmax(state1)
+        state2 = np.argmax(state2)
 
         self._Q_table[state1][action1] = self._Q_table[state1][action1] + \
             self._alpha * (
                 reward + self._gamma * max(self._Q_table[state2]) - \
                 self._Q_table[state1][action1]
             )
+        """
+          SARSA Update
+          Q(s,a) <- Q(s,a) + alpha * (reward + gamma * Q(s',a') - Q(s,a))
+          or
+          Q(s,a) <- Q(s,a) + alpha * (td_target - Q(s,a))
+          or
+          Q(s,a) <- Q(s,a) + alpha * td_delta
+        """
 
-interactive = True
+interactive = False
 
-env = WindyGridworldEnv()
-agent = SarsaAgent(
+env = SimpleRoomsEnv()
+agent = QLearningAgent(
     range(env.action_space.n),
     env.S,
 )
 experiment = Experiment(env, agent)
-experiment.run_sarsa(10, interactive)
+experiment.run_sarsa(50, interactive)

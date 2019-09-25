@@ -3,9 +3,7 @@ import matplotlib
 
 matplotlib.use('TkAgg')
 
-#from lib.envs.simple_rooms import SimpleRoomsEnv
 from lib.envs.windy_gridworld import WindyGridworldEnv
-#from lib.envs.cliff_walking import CliffWalkingEnv
 from lib.simulation import Experiment
 
 from shared.agent import Agent
